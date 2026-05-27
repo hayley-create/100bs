@@ -208,10 +208,10 @@ tr.total-row:hover{background:#e6f0dc!important;}
     <div class="kpi-value">1,263%</div>
     <div class="kpi-delta up">▲ 벤치마크 대비 우수</div>
   </div>
-  <div class="kpi-card">
-    <div class="kpi-label">5월 통합 ROAS (~12일)</div>
-    <div class="kpi-value">724%</div>
-    <div class="kpi-delta down">▼ 연휴 이후 하락세</div>
+  <div class="kpi-card roas-good">
+    <div class="kpi-label">5월 통합 ROAS (W18~W21)</div>
+    <div class="kpi-value">1,113%</div>
+    <div class="kpi-delta up">▲ W21 1,728% 견인 (기준 1,000%+ ✅)</div>
   </div>
 </div>
 
@@ -394,8 +394,12 @@ tr.total-row:hover{background:#e6f0dc!important;}
   <div class="insight-layout">
     <div class="insight-sidebar">
       <div class="insight-sidebar-title">📋 주차 선택</div>
-      <div class="insight-week-item active" onclick="switchInsight('w20')">
-        <div class="insight-week-label">W20 <span class="insight-week-badge">최신</span></div>
+      <div class="insight-week-item active" onclick="switchInsight('w21')">
+        <div class="insight-week-label">W21 <span class="insight-week-badge">최신</span></div>
+        <div class="insight-week-date">5/18 ~ 5/24</div>
+      </div>
+      <div class="insight-week-item" onclick="switchInsight('w20')">
+        <div class="insight-week-label">W20</div>
         <div class="insight-week-date">5/11 ~ 5/17</div>
       </div>
       <div class="insight-week-item" onclick="switchInsight('w19')">
@@ -437,6 +441,7 @@ const weeklyData = [
   {period:'W18', dates:'4/27~5/3',  rev:178065337, adcost:6967312,  roas:2556, cafe:102232674, smart:75832663},
   {period:'W19', dates:'5/4~5/10',  rev:63846356,  adcost:9181080,  roas:695,  cafe:37145703, smart:26700653},
   {period:'W20', dates:'5/11~5/17',  rev:95172745,  adcost:11375285, roas:837,  cafe:57516875,  smart:37655870},
+  {period:'W21', dates:'5/18~5/24', rev:177457509, adcost:10265110, roas:1728, cafe:99508329, smart:77949180},
 ];
 
 const cafe24Daily = [
@@ -448,7 +453,9 @@ const cafe24Daily = [
   {d:'4/26',v:8227467},{d:'4/27',v:19354586},{d:'4/28',v:37150935},{d:'4/29',v:40896615},{d:'4/30',v:4830538},
   {d:'5/1',v:1480109},{d:'5/2',v:1029476},{d:'5/3',v:2048098},{d:'5/4',v:2082991},{d:'5/5',v:4816474},
   {d:'5/6',v:10037037},{d:'5/7',v:11033107},{d:'5/8',v:4703728},{d:'5/9',v:1873493},{d:'5/10',v:3572866},
-  {d:'5/11',v:6897450},{d:'5/12',v:10706116}
+  {d:'5/11',v:6897450},{d:'5/12',v:10706116},
+  {d:'5/18',v:8227530},{d:'5/19',v:14121782},{d:'5/20',v:30203984},{d:'5/21',v:35125509},
+  {d:'5/22',v:9866064},{d:'5/23',v:509699},{d:'5/24',v:1453761}
 ];
 
 const smartDaily = [
@@ -460,7 +467,9 @@ const smartDaily = [
   {d:'4/26',v:3974960},{d:'4/27',v:13982480},{d:'4/28',v:27370500},{d:'4/29',v:24578190},{d:'4/30',v:1692500},
   {d:'5/1',v:1102200},{d:'5/2',v:953200},{d:'5/3',v:1595910},{d:'5/4',v:2138500},{d:'5/5',v:2666620},
   {d:'5/6',v:6741930},{d:'5/7',v:7524810},{d:'5/8',v:2998900},{d:'5/9',v:1484300},{d:'5/10',v:2171600},
-  {d:'5/11',v:4436040},{d:'5/12',v:5310520}
+  {d:'5/11',v:4436040},{d:'5/12',v:5310520},
+  {d:'5/18',v:6122690},{d:'5/19',v:10833060},{d:'5/20',v:33394120},{d:'5/21',v:19596360},
+  {d:'5/22',v:5779950},{d:'5/23',v:839000},{d:'5/24',v:1384000}
 ];
 
 const metaCampaigns = [
@@ -518,6 +527,96 @@ const products = [
 
 // ===== WEEKLY INSIGHTS =====
 const insights = {
+  w21: {
+    title: 'W21 인사이트 — 매출 폭발 주간, 1.77억 신기록 (5/18~5/24)',
+    kpis: [
+      {label:'통합매출',   val:'1.77억',   delta:'+86.4% vs W20', dir:'up'},
+      {label:'광고비',     val:'1,026만',  delta:'-9.8% vs W20',  dir:'up'},
+      {label:'통합ROAS',  val:'1,728%',  delta:'+891%p vs W20', dir:'up'},
+      {label:'Meta ROAS', val:'670%',    delta:'기준 400% 초과 ✅ 양호', dir:'up'},
+    ],
+    sections: [
+      {
+        title: '📌 현상 (What) — 5/20~5/21 수목 매출 폭발',
+        content: `<div class="insight-callout">
+          <div class="insight-callout-title">🔥 W21 통합매출 1.77억 — 최근 8주 중 W18(1.78억)에 이은 2위, 전주 대비 +86.4% 급반등</div>
+          주간 통합매출 1억 7,746만원(W20 9,517만 대비 +86.4%), 광고비 1,026만원(-9.8%), 통합 ROAS 1,728%(W20 837% 대비 +891%p). 5/20(수)·5/21(목) 이틀에 매출 1억 1,830만원 집중 발생(주간 매출의 66.7%).
+        </div>
+        <table class="insight-table">
+          <thead><tr><th>일자</th><th>자사몰</th><th>스마트스토어</th><th>합계</th><th>특이사항</th></tr></thead>
+          <tbody>
+            <tr><td>5/18(월)</td><td>823만</td><td>612만</td><td>1,435만</td><td>주 시작 평년 수준</td></tr>
+            <tr><td>5/19(화)</td><td>1,412만</td><td>1,083만</td><td>2,495만</td><td>화요일 부스팅 진입</td></tr>
+            <tr><td>5/20(수)</td><td class="pos"><strong>3,020만</strong></td><td class="pos"><strong>3,339만</strong></td><td class="pos"><strong>6,360만</strong></td><td>주간 최고일, 네이버 폭발</td></tr>
+            <tr><td>5/21(목)</td><td class="pos"><strong>3,512만</strong></td><td>1,960만</td><td class="pos"><strong>5,471만</strong></td><td>자사몰 최고일</td></tr>
+            <tr><td>5/22(금)</td><td>987만</td><td>578만</td><td>1,564만</td><td>주말 진입 감소</td></tr>
+            <tr><td>5/23(토)</td><td>51만</td><td>84만</td><td>134만</td><td>주말 광고 OFF</td></tr>
+            <tr><td>5/24(일)</td><td>145만</td><td>138만</td><td>284만</td><td>주말 광고 OFF</td></tr>
+          </tbody>
+        </table>
+        <div class="insight-callout">
+          <div class="insight-callout-title">📊 채널 매출 구성 — 자사몰 56.1% : 네이버 43.9%</div>
+          자사몰 9,951만(56.1%), 네이버 7,795만(43.9%). 자사몰 비중 W20 60.4% 대비 -4.3%p — 네이버 채널의 상대적 매출 점유 확대 확인.
+        </div>`
+      },
+      {
+        title: '🔍 이유 (Reason)',
+        content: `<table class="insight-table">
+          <thead><tr><th>요인</th><th>데이터 근거</th><th>영향</th></tr></thead>
+          <tbody>
+            <tr><td><strong>네이버 검색광고 브랜드 키워드 폭증</strong></td><td>(공통)파워링크_스마트스토어 캠페인 ROAS 14,814% — 광고비 5.6만원에 매출 912만원. 전환 194건</td><td class="pos">+++</td></tr>
+            <tr><td><strong>네이버 GFA 애드부스트 효율 호조</strong></td><td>애드부스트_8월 캠페인 단일로 광고비 49만원 → 매출 745만원 (ROAS 1,371%, 전환 176건)</td><td class="pos">++</td></tr>
+            <tr><td><strong>Meta 광고 효율 큰 폭 개선</strong></td><td>Meta ROAS 384%(직전) → 670%(W21) +286%p 상승. 기준 400% 초과 ✅ 양호. CPA 10,716 → 6,891원(-36%)</td><td class="pos">++</td></tr>
+            <tr><td><strong>고효율 Meta 캠페인 다수 가동</strong></td><td>(네이버)03_단일통합_Top10 ROAS 1,157%(rev 8.19M), (H)17_단일_팔당오징어 1,030%, (H)(산지)_02_제주도흑돼지 1,176%, 백골뱅이홍합탕 1,265%</td><td class="pos">++</td></tr>
+            <tr><td><strong>광고비 -9.8% 절감하며 매출 +86.4%</strong></td><td>광고비 1,138만 → 1,026만 (-112만, -9.8%). 매출 9,517만 → 1.77억 (+86.4%) — 효율 약 2배 개선</td><td class="pos">+++</td></tr>
+            <tr><td><strong>5/23~5/24 주말 광고 OFF</strong></td><td>5/23 광고비 511원, 5/24 광고비 30,890원(거의 OFF). 주말 매출도 동반 감소 — 광고 OFF가 매출에 직접 연동</td><td class="neg">-</td></tr>
+          </tbody>
+        </table>
+        <div class="insight-callout">
+          <div class="insight-callout-title">📌 CRM 성과 (카카오 알림톡) — CRM 시트 확인 필요</div>
+          5/20~5/21 폭발적 매출은 외부 트래픽 유입(네이버 브랜드 검색 폭증)과 동시에 CRM 발송 효과 가능성 있음. 발송 일자/수/클릭률/당일 매출 스파이크 여부 CRM 구글 시트 기준 확인 후 기재 요망.
+          <br>- 발송 일자: <em>[CRM 시트 확인]</em>
+          <br>- 발송 수: <em>[CRM 시트 확인]</em>
+          <br>- 클릭률: <em>[CRM 시트 확인]</em>
+          <br>- 발송 당일 매출: <em>[CRM 시트 확인]</em>
+        </div>
+        <div class="insight-callout">
+          <div class="insight-callout-title">📌 Meta CBT (스마트스토어 리타겟) 현황</div>
+          Meta CBT(자사몰 분리) ROAS는 별도 확인 필요. (네이버)03_단일통합_Top10 캠페인은 명목상 자사몰 캠페인이지만 네이버 모수 활용 — CBT 탭 크로스체크 요망.
+        </div>`
+      },
+      {
+        title: '💡 솔루션 (Solution)',
+        content: `<ul class="action-list">
+          <li class="p1"><span class="action-badge p1">P1 긴급</span><strong>네이버 검색광고 브랜드 키워드 예산 확대 검토</strong> — (공통)파워링크_스마트스토어 ROAS 14,814% / CVR 17.5%. 현재 광고비 5.6만원 → 10~15만원 증액 시 매출 추가 확보 가능성 분석 (담당: 정헌 사장 컨펌 → 마케팅팀).</li>
+          <li class="p1"><span class="action-badge p1">P1 긴급</span><strong>5/20~5/21 매출 폭발 원인 정밀 분석</strong> — CRM 발송 일자/외부 노출(블로그·인플루언서·SNS)/시즌 효과 중 어떤 변수가 결정적이었는지 사후 분석. 향후 재현 가능 여부 판단 (담당: Rachel + 정헌 사장).</li>
+          <li class="p2"><span class="action-badge p2">P2 중요</span><strong>주말(토일) 광고 운영 가이드 재검토</strong> — 5/23 광고비 511원, 매출 134만원으로 직접 연동 확인. 주말 일 예산 30~50만원 유지 시 매출 회복 가능성 시뮬레이션 (담당: 마케팅팀).</li>
+          <li class="p2"><span class="action-badge p2">P2 중요</span><strong>Meta 고효율 캠페인 예산 집중</strong> — (네이버)03_단일통합_Top10(ROAS 1,157%), (H)17_단일_팔당오징어(1,030%), 백골뱅이홍합탕(1,265%), 제주도흑돼지(1,176%) — 4개 캠페인을 중심으로 W22 예산 우선 배분.</li>
+          <li class="p3"><span class="action-badge p3">P3 검토</span><strong>새우젓 시즌 진입 모니터링</strong> — 6월 새우젓 본격 시즌 진입 대비 키워드 광고 사전 셋업. 상품별 매출 분석 시 새우젓을 반드시 별도 분리 — 밀키트 카테고리와 ROAS 기여 성격 상이.</li>
+          <li class="p3"><span class="action-badge p3">P3 검토</span><strong>상위 상품 라인업 재구성</strong> — W21 Top5 (수제꼬치 747만, 손말이고기 638만, 스지 407만, 쪽갈비 341만, 소꼬리찜 314만). 손말이고기는 5월 전체로도 1위 — 히어로 상품 지위 공고화. 신규 CRM 큐레이션 안건 검토.</li>
+        </ul>`
+      },
+      {
+        title: '📅 다음 주 방향성 (W22: 5/25~5/31)',
+        content: `<table class="insight-table">
+          <thead><tr><th>항목</th><th>계획</th><th>목표</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Meta 예산</strong></td><td>고효율 캠페인 4개(Top10/팔당오징어/홍합탕/흑돼지) 위주 집중. 일 예산 W21 평균 +10% 증액</td><td>Meta ROAS 700%+ 유지 (벤치마크 우수 구간)</td></tr>
+            <tr><td><strong>네이버 SA</strong></td><td>브랜드 키워드(파워링크_스마트스토어) 입찰가 +20~30% 검토. 손말이고기·스지·꼬리껍데기 키워드 유지</td><td>SA ROAS 2,000%+ 유지</td></tr>
+            <tr><td><strong>네이버 GFA</strong></td><td>애드부스트_8월 단독 캠페인 유지 (ROAS 1,371%). 추가 소재 A/B 테스트 1~2건</td><td>GFA ROAS 1,000%+ 유지</td></tr>
+            <tr><td><strong>CRM</strong></td><td>화·목 정기 발송 + 5/20~5/21 매출 견인 요인 재현 시도(쿠폰/큐레이션). 발송 당일 매출 시트 기록 의무화</td><td>비프로모션 ROAS 480%+, 발송 당일 +30% 스파이크</td></tr>
+            <tr><td><strong>주말 운영</strong></td><td>토·일 광고비 일 30~50만원 유지(W21 OFF 대비 변경 테스트) — 1주차 ROI 측정 후 정책화</td><td>주말 일평균 매출 500만+ 회복 여부 검증</td></tr>
+            <tr><td><strong>모니터링 중점</strong></td><td>W21 폭발(1.77억) 이후 W22 자연 감소 폭 추적. 매출 1.0억 이하 하락 시 P0 트리거 검토</td><td>W22 통합 ROAS 1,000%+ 유지, 매출 1.2억+</td></tr>
+          </tbody>
+        </table>
+        <div class="insight-callout">
+          <div class="insight-callout-title">📌 5월 누적 (W18~W21) 요약</div>
+          5월 누적 매출 3.45억(W18 0.08억 + W19 0.64억 + W20 0.95억 + W21 1.77억), 광고비 3,097만, 통합 ROAS 1,113% — 기준 1,000% 초과 ✅ 우수. 4월 대비 매출 -35%이지만 W21 단주 성과로 5월 마감 강세 확인.
+        </div>`
+      }
+    ]
+  },
+
   w19: {
     title:'W19 인사이트 — 황금연휴 후유증 (5/4~5/10)',
     kpis:[
@@ -1117,7 +1216,7 @@ function renderInsight(key){
     <div class="insight-kpi-grid">${kpiHtml}</div>
     ${sectionsHtml}`;
 }
-renderInsight('w20');
+renderInsight('w21');
 
 // ===== TAB SWITCHING =====
 function switchTab(id){
